@@ -1,14 +1,16 @@
 import { React, useState } from "react";
 import { useHistory } from "react-router";
 
+import { callAPI } from '../util';
+
 const Register = ({ setToken }) => {
   const [ newUsername, setNewUsername ] = useState('');
-  const [ newPassword, setnewPassword ] = useState('');
+  const [ newPassword, setNewPassword ] = useState('');
   const [ , ] = useState('');
   const history = useHistory();
 
   const handleRegisterSubmit = async (event) => {
-    ev.preventDefault();
+    event.preventDefault();
 
     try {
       const registerObj = await callAPI({
@@ -32,7 +34,7 @@ const Register = ({ setToken }) => {
     }
 
     setNewUsername('');
-    setnewPassword('');
+    setNewPassword('');
   };
 
   return <>

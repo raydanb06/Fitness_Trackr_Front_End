@@ -8,11 +8,15 @@ const App = () => {
   const [ token, setToken ] = useState('');
 
   return <>
-    <Link to='/'>Homepage</Link> | <Link to='/account'>Account</Link>
+    <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/account'>Account</Link> 
 
     <Route exact path='/'>
       <Homepage token={token} />
     </Route>
+
+    {/* <Route exact path='/routines'>
+      <Routines />
+    </Route> */}
 
     <Route exact path='/account'>
       <Account setToken={setToken} />

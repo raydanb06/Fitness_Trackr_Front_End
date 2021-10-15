@@ -1,40 +1,36 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
-
 import { callAPI } from '../util';
 
 const Register = ({ setToken }) => {
   const [ newUsername, setNewUsername ] = useState('');
   const [ newPassword, setNewPassword ] = useState('');
-  const [ , ] = useState('');
   const history = useHistory();
 
-  const handleRegisterSubmit = async (event) => {
-    event.preventDefault();
+  const handleRegisterSubmit = async (ev) => {
+    ev.preventDefault();
 
     try {
       const registerObj = await callAPI({
         url: 'users/register',
         method: 'POST',
         body: {
-          username: 'newUsername',
-          password: 'newPassword'
+          username: `${newUsername}`,
+          password: `${newPassword}`
         }
       });
 
-      if (registerObj.user) {
+      setNewUsername('');
+      setNewPassword('');
+
+      if (registerObj.token) {
         setToken(registerObj.token);
-        if (registerObj.token) {
-          history.push('/');
-        }
+        history.push('/');
       }
 
     } catch (error) {
       console.error(error);
     }
-
-    setNewUsername('');
-    setNewPassword('');
   };
 
   return <>

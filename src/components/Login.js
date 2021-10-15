@@ -15,25 +15,21 @@ const Login = ({ setToken }) => {
         url: 'users/login',
         method: 'POST',
         body: {
-          user: {
-            username: `${username}`,
-            password: `${password}`
-          }
+          username: `${username}`,
+          password: `${password}`
         }
       });
-      if (loginObj.data) {
-        setToken(loginObj.data.token);
-        if (loginObj.data.token) {
-          history.push('/');
-        }
+
+      setUsername('');
+      setPassword('');
+
+      if (loginObj.token) {
+        setToken(loginObj.token);
+        history.push('/');
       }
     } catch (error) {
       console.error(error);
     }
-
-    
-    setUsername('');
-    setPassword('');
   };
 
   return <>

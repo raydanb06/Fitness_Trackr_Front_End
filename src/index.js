@@ -45,7 +45,7 @@ const App = () => {
 
 
   return <>
-    <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/account'>Account</Link> | {token && <Link to='/account' onClick={() => setToken('')}>Logout</Link>}
+    <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/activities'>Activities</Link> | <Link to='/account'>Login/Register</Link> | { token && <Link to='/myroutines'>My Routines</Link>} | { token && <Link to='/account' onClick={() => setToken('')}>Logout</Link>}
 
     <Route exact path='/'>
       <Homepage token={token} />

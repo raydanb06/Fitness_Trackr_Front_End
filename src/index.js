@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import { Account, Homepage, Routines } from './components'
+import { Account, Homepage, Routines, Activities } from './components'
 import { callAPI } from './util';
 
 const App = () => {
@@ -53,6 +53,10 @@ const App = () => {
 
     <Route exact path='/routines'>
       <Routines routines={routines}/>
+    </Route>
+
+    <Route exact path='/activities'>
+      <Activities activities={activities}/>
     </Route>
 
     <Route exact path='/account'>

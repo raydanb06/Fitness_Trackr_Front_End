@@ -1,22 +1,59 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import { Account, Homepage } from './components'
+import { Account, Homepage, Routines } from './components'
+import { callAPI } from './util';
 
 const App = () => {
   const [ token, setToken ] = useState('');
+  const [ routines, setRoutines] = useState([]);
+  const [ activities, setActivities ] = useState([]);
+  console.log(routines);
+  console.log(activities);
+  try {
+    const fetchRoutines = async () => {
+      const routinesObj = await callAPI({
+        url: 'routines',
+        method: 'GET',
+        token: `${token}`
+      })
+      if (routinesObj) setRoutines(routinesObj);
+    };
+
+    const fetchActivities = async () => {
+      const actvitiesObj = await callAPI({
+        url: 'activities',
+        method: 'GET',
+        token: `${token}`
+      })
+      if (actvitiesObj) setActivities(actvitiesObj);
+    }
+
+    useEffect(() => {
+      fetchRoutines();
+    }, []);
+
+    useEffect(() => {
+      fetchActivities();
+    }, []);
+
+  } catch (error) {
+    console.error(error);
+  } 
+
+
 
   return <>
-    <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/account'>Account</Link> 
+    <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/account'>Account</Link> | {token && <Link to='/account' onClick={() => setToken('')}>Logout</Link>}
 
     <Route exact path='/'>
       <Homepage token={token} />
     </Route>
 
-    {/* <Route exact path='/routines'>
-      <Routines />
-    </Route> */}
+    <Route exact path='/routines'>
+      <Routines routines={routines}/>
+    </Route>
 
     <Route exact path='/account'>
       <Account setToken={setToken} />

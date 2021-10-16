@@ -11,36 +11,32 @@ const App = () => {
   const [ activities, setActivities ] = useState([]);
   console.log(routines);
   console.log(activities);
-  try {
-    const fetchRoutines = async () => {
-      const routinesObj = await callAPI({
-        method: 'GET',
-        url: 'routines',
-        token: `${token}`
-      })
-      if (routinesObj) setRoutines(routinesObj);
-    };
+  
+  const fetchRoutines = async () => {
+    const routinesObj = await callAPI({
+      method: 'GET',
+      url: 'routines',
+      token: `${token}`
+    })
+    if (routinesObj) setRoutines(routinesObj);
+  };
 
-    const fetchActivities = async () => {
-      const actvitiesObj = await callAPI({
-        method: 'GET',
-        url: 'activities',
-        token: `${token}`
-      })
-      if (actvitiesObj) setActivities(actvitiesObj);
-    }
+  const fetchActivities = async () => {
+    const actvitiesObj = await callAPI({
+      method: 'GET',
+      url: 'activities',
+      token: `${token}`
+    })
+    if (actvitiesObj) setActivities(actvitiesObj);
+  }
 
-    useEffect(() => {
-      fetchRoutines();
-    }, [ token ]);
+  useEffect(() => {
+    fetchRoutines();
+  }, [ token ]);
 
-    useEffect(() => {
-      fetchActivities();
-    }, [ token ]);
-
-  } catch (error) {
-    console.error(error);
-  } 
+  useEffect(() => {
+    fetchActivities();
+  }, [ token ]);
 
   return <>
     <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/activities'>Activities</Link> | <Link to='/account'>Login/Register</Link> | { token && <Link to='/myroutines'>My Routines</Link>} | { token && <Link to='/account' onClick={() => setToken('')}>Logout</Link>}
@@ -54,7 +50,7 @@ const App = () => {
     </Route>
 
     <Route exact path='/activities'>
-      <Activities token={token} activities={activities} />
+      <Activities token={token} activities={activities} fetchActivities={fetchActivities}/>
     </Route>
 
     <Route exact path='/account'>

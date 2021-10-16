@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { callAPI } from '../util';
 
-const AddActivityForm = (props) => {
-  const { token } = props;
+const AddActivityForm = ({ token, fetchActivities}) => {
   const [ name, setName ] = useState('');
   const [ description, setDescription ] = useState('');
   
@@ -19,13 +18,14 @@ const AddActivityForm = (props) => {
           description: description 
           }
         })
-
+    
       setName('');
       setDescription('');
     } catch (error) {
       console.error(error);
     }
 
+    await fetchActivities();
   }
 
   return <>

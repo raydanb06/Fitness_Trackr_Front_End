@@ -14,8 +14,8 @@ const App = () => {
   try {
     const fetchRoutines = async () => {
       const routinesObj = await callAPI({
-        url: 'routines',
         method: 'GET',
+        url: 'routines',
         token: `${token}`
       })
       if (routinesObj) setRoutines(routinesObj);
@@ -23,8 +23,8 @@ const App = () => {
 
     const fetchActivities = async () => {
       const actvitiesObj = await callAPI({
-        url: 'activities',
         method: 'GET',
+        url: 'activities',
         token: `${token}`
       })
       if (actvitiesObj) setActivities(actvitiesObj);
@@ -32,17 +32,15 @@ const App = () => {
 
     useEffect(() => {
       fetchRoutines();
-    }, []);
+    }, [ token ]);
 
     useEffect(() => {
       fetchActivities();
-    }, []);
+    }, [ token ]);
 
   } catch (error) {
     console.error(error);
   } 
-
-
 
   return <>
     <Link to='/'>Homepage</Link> | <Link to='/routines'>Routines</Link> | <Link to='/activities'>Activities</Link> | <Link to='/account'>Login/Register</Link> | { token && <Link to='/myroutines'>My Routines</Link>} | { token && <Link to='/account' onClick={() => setToken('')}>Logout</Link>}
@@ -52,11 +50,11 @@ const App = () => {
     </Route>
 
     <Route exact path='/routines'>
-      <Routines routines={routines}/>
+      <Routines routines={routines} />
     </Route>
 
     <Route exact path='/activities'>
-      <Activities activities={activities}/>
+      <Activities token={token} activities={activities} />
     </Route>
 
     <Route exact path='/account'>

@@ -12,8 +12,8 @@ const Login = ({ setToken }) => {
     
     try {
       const loginObj = await callAPI({
-        url: 'users/login',
         method: 'POST',
+        url: 'users/login',
         body: {
           username: `${username}`,
           password: `${password}`

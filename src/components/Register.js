@@ -12,8 +12,8 @@ const Register = ({ setToken }) => {
 
     try {
       const registerObj = await callAPI({
-        url: 'users/register',
         method: 'POST',
+        url: 'users/register',
         body: {
           username: `${newUsername}`,
           password: `${newPassword}`

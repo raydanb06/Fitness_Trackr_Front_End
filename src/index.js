@@ -46,7 +46,7 @@ const App = () => {
     </Route>
 
     <Route exact path='/routines'>
-      <Routines routines={routines} />
+      <Routines token={token} routines={routines} />
     </Route>
 
     <Route exact path='/activities'>
@@ -55,6 +55,10 @@ const App = () => {
 
     <Route exact path='/account'>
       <Account setToken={setToken} />
+    </Route>
+
+    <Route exact path='/myroutines'>
+      <Routines token={token} routines={routines} />
     </Route>
   </>
 }

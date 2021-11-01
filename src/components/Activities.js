@@ -9,7 +9,7 @@ const Activities = ({ token, activities, fetchActivities }) => {
       token && <AddActivityForm token={token} fetchActivities={fetchActivities}/>
     }
     {
-      activities.map(activity => <div key={activity.id}>{activity.name}, {activity.description}</div>)
+      activities.map(activity => <div key={activity.id}>{activity.name}, {activity.description}, {activity.duration} </div>)
     }
   </>
 }

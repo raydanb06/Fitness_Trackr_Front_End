@@ -1,9 +1,9 @@
 import React from "react";
 
-const Routines = ({ token, routines }) => {
+const MyRoutines = ({ token, routines }) => {
 
   return <>
-    <h1 className='header'>Routines Page</h1>
+    <h1 className='header'>My Routines Page</h1>
     {
       routines.map(routine => <div key={routine.id}> {routine.name}, {routine.goal}:
       {routine.activities.map(activity => <div key={activity.id}> {activity.name}, { activity.description}, {activity.duration}, {activity.count} </div>)} </div>)
@@ -11,4 +11,4 @@ const Routines = ({ token, routines }) => {
   </>
 }
 
-export default Routines;
+export default MyRoutines;

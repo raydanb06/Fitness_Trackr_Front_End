@@ -2,16 +2,18 @@ import { React, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import { Account, Homepage, Routines, Activities } from './components'
+import { Account, Homepage, Routines, Activities, MyRoutines } from './components'
 import { callAPI } from './util';
 
 const App = () => {
   const [ token, setToken ] = useState('');
   const [ routines, setRoutines] = useState([]);
   const [ activities, setActivities ] = useState([]);
+  const [ user, setUser] = useState('');
   console.log(routines);
   console.log(activities);
-  
+  console.log(user);
+
   const fetchRoutines = async () => {
     const routinesObj = await callAPI({
       method: 'GET',
@@ -30,12 +32,25 @@ const App = () => {
     if (actvitiesObj) setActivities(actvitiesObj);
   }
 
+  const fetchUser = async () => {
+    const user = await callAPI({
+      method: 'GET',
+      url: 'users/me',
+      token: `${token}`
+    })
+    if (user) setUser(user);
+  }
+
   useEffect(() => {
     fetchRoutines();
   }, [ token ]);
 
   useEffect(() => {
     fetchActivities();
+  }, [ token ]);
+
+  useEffect(() => {
+    fetchUser();
   }, [ token ]);
 
   return <>
@@ -58,7 +73,7 @@ const App = () => {
     </Route>
 
     <Route exact path='/myroutines'>
-      <Routines token={token} routines={routines} />
+      <MyRoutines user={user} token={token} routines={routines} />
     </Route>
   </>
 }

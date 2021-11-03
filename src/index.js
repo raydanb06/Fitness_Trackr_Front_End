@@ -73,7 +73,7 @@ const App = () => {
     </Route>
 
     <Route exact path='/myroutines'>
-      <MyRoutines user={user} token={token} routines={routines} />
+      <MyRoutines user={user} token={token} routines={routines} fetchRoutines={fetchRoutines}/>
     </Route>
   </>
 }

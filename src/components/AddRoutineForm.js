@@ -1,41 +1,43 @@
 import React, { useState } from 'react';
 import { callAPI } from '../util';
 
-const AddRoutineForm = ({ token, fetchActivities}) => {
+const AddRoutineForm = ({ token, fetchRoutines}) => {
   const [ name, setName ] = useState('');
-  const [ description, setDescription ] = useState('');
+  const [ goal, setGoal ] = useState('');
+  const [ isPublic, setIsPublic ] = useState('');
   
-  const handleActivitySubmit = async (ev) => {
+  const handleRoutineSubmit = async (ev) => {
     ev.preventDefault();
 
     try {
-      const addActivity = await callAPI({
+      const addRoutine = await callAPI({
         method: 'POST',
-        url: 'activities',
+        url: 'routines',
         token: `${token}`,
         body: {
           name: name,
-          description: description 
+          goal: goal
           }
         })
     
       setName('');
-      setDescription('');
+      setGoal('');
     } catch (error) {
       console.error(error);
     }
 
-    await fetchActivities();
+    await fetchRoutines();
   }
 
   return <>
-    <h2 className='header'>Add Activity</h2>
-    <form onSubmit={handleActivitySubmit}>
+    <h2 className='header'>Add Routine</h2>
+    <form onSubmit={handleRoutineSubmit}>
       <input placeholder='Name' type='text' value={name} onChange={(ev) => setName(ev.target.value)}/>
-      <input placeholder='Description' type='text' value={description} onChange={(ev) => setDescription(ev.target.value)}/>
-      <button type='submit'>Add Activity</button>
+      <input placeholder='Goal' type='text' value={goal} onChange={(ev) => setGoal(ev.target.value)}/>
+      <input placeholder='Public - true or false' type='text' value={isPublic} onChange={(ev) => setIsPublic(ev.target.value)}/>
+      <button type='submit'>Add Routine</button>
     </form>
   </>
 }
 
-export default AddActivityForm;
+export default AddRoutineForm;
